@@ -1,0 +1,80 @@
+<div>
+<div ng-if="searchData.length != 0">
+<div class="row">
+    <div class="col-md-10 col-md-offset-1" id="showTable" style="overflow: scroll">
+      <!-- Default panel contents -->
+    <div class="pull-right">
+        <button type="button" class="btn btn-default" ng-disabled="detailDisabled" ng-click="go()">
+            Details <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> 
+        </button>
+    </div>
+
+      <!-- Table -->
+      <table class="table table-responsive" >
+        <tr>
+            <td><b>#</b></td>
+            <td><b>Catergory</b></td>
+            <td><b>Name</b></td>
+            <td><b>Address</b></td>
+            <td><b>Favorite</b></td>
+            <td><b>Details</b></td>
+          </tr>
+          <!--ng-class="{'to-yellow':clickThisDetail[currentIndex]}"-->
+        <tr ng-repeat="item in searchData" ng-class="{'to-yellow':clickThisDetail[currentPage][$index]}">
+            <td>{{$index + 1}}</td>
+            <td><img ng-src="{{item.icon}}" alt="icon" class="icon-image"/></td>
+            <td>{{item.name}}</td>
+            <td>{{item.vicinity}}</td>
+            <td>
+                <button type="button" class="btn btn-default" ng-click="addToFav($index)">
+                <span class="glyphicon glyphicon-star-empty" aria-hidden="true" ng-if="!clickThisStar[currentPage][$index]"></span>
+                <span class="glyphicon glyphicon-star bis" aria-hidden="true" ng-if="clickThisStar[currentPage][$index]" ng-click="addToFav($index)"></span>
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-default " ng-click="getDetail($index)">
+                <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                </button>
+            </td>
+          </tr>
+      </table>
+    </div>
+</div>
+</div>
+
+<div class="row" ng-show="!loading">
+    <div class="col-md-10 col-md-offset-1" style="overflow: scroll">
+        <nav aria-label="..." >
+          <ul class="pager">
+            <li ng-show="hasPreview"><button class="btn btn-default" ng-click="goBack(currentPage-1)">Previous</button></li>
+            <li ng-show="hasNext"><button class="btn btn-default" ng-click="goNext(currentPage + 1)">Next</button></li>
+          </ul>
+        </nav>
+    </div>
+</div>
+  
+<!--
+<div class="row" ng-show="!loading">
+    <div class="col-md-10 col-md-offset-1" style="overflow: scroll">
+        <nav aria-label="..." >
+          <ul class="pager">
+            <li ng-class="{disabled:currentPage <= 1}"><button class="btn btn-default" ng-click="goPage(currentPage - 1)">Previous</button></li>
+            <li ng-class="{disabled:currentPage <= totalPage}"><button class="btn btn-default" ng-click="goPage(currentPage + 1)">Next</button></li>
+          </ul>
+        </nav>
+    </div>
+</div>
+    -->
+<!--ng-show="loading"-->
+<div class="row" ng-if="searchData.length == 0">
+    <div class="col-md-10 col-md-offset-1" style="overflow: scroll">
+        <div>
+            <div class="alert alert-warning" role="alert">
+                <strong>No records.</strong> 
+            </div>
+        </div>
+    </div>
+</div>
+ 
+
+</div>

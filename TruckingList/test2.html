@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Homework 4</title>
+<meta charset="UTF-8">
+
+<style>
+div {
+text-align:center;
+margin-top:100px;
+}
+</style>
+
+    
+<script type="text/javascript">
+   
+/* jshint browser: true */
+
+var xmlhttp;
+var jsonObj;
+var html;
+var hWin;
+
+function viewJSON(what)
+{ 
+    var URL = what.URL.value; 
+    if(URL === "")
+    {
+        alert("Input Box is empty");
+        return;
+    }
+    
+    function loadJSON(url) 
+    {
+        /*if (window.XMLHttpRequest)
+        {// code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp=new XMLHttpRequest(); } 
+        else 
+        {// code for IE6, IE5
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); 
+        }*/
+    try{
+        xmlhttp=new XMLHttpRequest();
+        xmlhttp.open("GET",url,false);
+              
+        xmlhttp.send();
+    }
+      catch(err){
+            //console.log(err);
+          alert("Input file doest not exist");
+          return;
+        }
+        //console.log(typeof(xmlhttp.responseText));
+        jsonObj= JSON.parse(xmlhttp.responseText);
+        return jsonObj; 
+    }
+    
+    jsonObj = loadJSON(URL);
+    
+    /*if (window.ActiveXObject) //if IE, simply execute script (due to async prop). 
+    { 
+            if (jsonObj.parseError.errorCode != 0) 
+            {
+                var myErr = jsonObj.parseError;
+                //generateError(jsonObj);
+                hWin = window.open("", "Error", "height=300,width=340"); 
+                hWin.document.write(html_text);
+            } 
+            else 
+            { 
+                //generateHTML(jsonObj);
+                hWin = window.open("", "Assignment4", "height=800,width=600"); hWin.document.write(html_text); 
+            }
+    } 
+    else //else if FF, execute script once JSON object has loaded 
+    { 
+        //jsonObj.onload=generateHTML(jsonObj);
+        hWin = window.open("", "Assignment4", "height=600,width=900"); hWin.document.write(html_text); 
+    } */
+    
+    jsonObj.onload=generateHTML(jsonObj);
+    
+    hWin = window.open("", "Assignment4", "height=700,width=1000"); hWin.document.write(html);
+    hWin.document.close(); 
+}
+
+function generateHTML(jsonObj) 
+{
+    //root=jsonObj.DocumentElement;
+    html ="<html><head><title>JSON Parse Result</title></head><body>";
+    html +="<table border='2' style = 'width:1000'>";
+    //caption=jsonObj.catalog.title;
+    //html_text+="<caption align='left'><h1>"+caption+"</h1></caption>";
+    
+    var head = jsonObj.Mainline.Table.Header.Data;
+    if(head)
+    {
+        html += "<tr>";
+        for(var i =0; i<head.length; i++){
+            html += "<th>" + head[i] + "</th>";
+        }
+        html += "</tr>";          
+    }
+    
+    var content = jsonObj.Mainline.Table.Row;
+    if(content === undefined)
+        return;
+    else{
+    
+    for(var j=0; j<content.length; j++){
+        html += "<tr>";
+            //Company: "UPS", Services: "UPS Ground, UPS Freight", Hubs: {…}, //Revenue:"$24,752", HomePage: "https://www.ups.com/", …}
+        var countIndex = 0;
+        var ppt;
+        for(ppt in content[j])
+        {
+            countIndex++; 
+            html += "<td>";
+            //var content_keys = Object.keys(content[j]);
+            if(ppt !== "")
+            {
+                if(typeof(content[j][ppt]) == "string")
+                {
+                    if(countIndex == 5)
+                        html += "<a href = '" + content[j][ppt] + "'>" + content[j][ppt] + "</a>";
+                    else if(countIndex == 6)
+                        html +="<img src='"+ content[j][ppt] + "'style = 'width:100%; margin-left:auto; margin-right:auto; margin-top:30px; margin-bottom:30px'>";
+                    else
+                        html += content[j][ppt];
+                }
+                else if(typeof(content[j][ppt]) == "object")
+                {
+                    var hubArray = content[j][ppt]["Hub"];
+                    var ppt2 = 0;
+                    if(hubArray.length === 0)
+                        html += "";
+                    else
+                    {
+                        html += "<ul style = 'width: 180px'>";
+                        html += "<li><strong>" + hubArray[ppt2] + "</strong></li>";
+                        for(ppt2 = 1; ppt2 <hubArray.length; ppt2++) 
+                            html += "<li>" + hubArray[ppt2] + "</li>";
+                        html += "</ul>";
+                            
+                    }
+                        
+                }       
+            }
+            else
+            {
+                    html += content[j][ppt];
+            }
+            html += "</td>";
+        }
+        html += "</tr>";
+    }
+    
+}   
+    html +="</table>";
+    html +="</body></html>";
+    
+    //console.log(html);
+}
+      
+</script>
+</head>
+    
+<body>
+
+<!--<div>
+  <h1>Enter URL for Trucking List JSON File</h1>
+  <form name="myForm">
+     <input id="demo" type="text" name="fname"><br><br>
+     <button id="getJSON">Submit Query</button>
+  </form>
+</div>-->
+   
+<div>  
+<h1>Enter URL for Trucking List JSON File</h1>
+<form name="myform" method="POST" id="location">
+<input type="text" name="URL" value="truckinglist.json" />
+<br />
+<input type="button" name="submit" value="Submit Query" onclick="viewJSON(this.form)" />
+</form>
+</div>
+    
+<!--<button id="getJSON">Submit Query</button>-->
+
+<div id = "content"></div>
+
+
+</body>
+</html>
+
+
+
+

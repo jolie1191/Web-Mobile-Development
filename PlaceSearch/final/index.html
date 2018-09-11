@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Travel and Entertainment Search</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   
+    <!--angular js-->   
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
+    
+  <link href="http://antenna.io/demo/jquery-bar-rating/dist/themes/fontawesome-stars-o.css" rel="stylesheet"/>
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet"/>
+  <script src="http://antenna.io/demo/jquery-bar-rating/dist/jquery.barrating.min.js"></script>
+    
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+   
+  <script src="https://rawgit.com/allenhwkim/angularjs-google-maps/master/build/scripts/ng-map.min.js"></script>
+    
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
+    
+
+    
+    
+  <link rel="stylesheet" href="mystyle.css">
+    
+  <script src="myApp.js"></script>
+    
+    <!--每增加一个模块，都要记得添加模块脚本， 注入myApp新增模块-->
+    <script src="resultsController.js"></script>
+    <script src="favoritesController.js"></script>
+    <script src="detailsController.js"></script>
+    <script src="favoriteDetail.js"></script>
+    
+    <!--google place autocomplete-->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZMrVdoWetR9i4e7mxdU22pni85irVsZw&libraries=places"></script>
+    
+    <!--<script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>-->
+    <script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+   <!-- <script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));</script>-->
+    
+
+</head>
+    
+<body  ng-app="myApp" ng-controller="myAppCtrl" ng-cloak>
+
+<script>
+
+/*var app = angular.module("myApp", []);//注册一个模块，2.这个模块依赖哪些模块
+app.controller("myAppCtrl", ['$scope', function($scope) {
+    $scope.master = {"catergory":"default","location":0};
+    
+    $scope.$watchCollection('formData',function(){
+        if($scope.formData.location == 0 && $scope.formData.locationOther != "undefined")
+        {
+            $scope.formData.locationOther = "";
+        }
+    } );
+    
+    $scope.clearFunc = function(myForm){
+        if(myForm){
+            myForm.$setPristine();
+            myForm.$setUntouched();
+        }
+        
+        $scope.formData = angular.copy($scope.master);
+    };
+    
+
+	// function to submit the form after all validation has occurred			
+    $scope.submitForm = function() {
+
+        // check to make sure the form is completely valid
+        if ($scope.myForm.$valid) {
+            alert('our form is amazing');
+        }
+
+    };  
+    
+}]);*/
+       
+        
+</script>
+    
+<div class="container">
+	<div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="well well-lg">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <form class="form-horizontal" name="myForm" ng-submit="submitForm('/showresults')" novalidate>
+                      <fieldset>
+                          <legend class="text-center">Travel and Entertainment Search</legend>
+
+                        <!-- keyword -->
+                        <div class="form-group" ng-class="{'has-error':myForm.keyword.$touched && myForm.keyword.$error.required}">
+                          <label class="col-md-3 control-label" for="keyword">Keyword<span style="color:red">*</span></label>
+                          <div class="col-md-9">
+                            <input id="keyword" name="keyword" type="text" class="form-control input-sm" required ng-model="formData.keyword">
+                            <p ng-show="myForm.keyword.$touched && myForm.keyword.$error.required" class="help-block">Keyword is required</p>
+                          </div>
+                        </div>
+
+                        <!-- catergory -->
+                        <div class="form-group">
+                          <label class="col-md-3 control-label" for="catergory">Catergory</label>
+                          <div class="col-md-7">
+                            <select name="catergory" id="catergory" class="form-control input-sm" ng-model="formData.catergory" ng-init="formData.catergory='default'">
+                                <option value="default" selected>Default </option>
+                                <option value="airport">Airport </option>
+                                <option value="amusement_park"> Amusement Park</option>
+                                <option value="aquarium">Aquarium </option>
+                                <option value="art_gallery">Art Gallery </option>
+                                <option value="bakery"> Bakery</option>
+                                <option value="bar"> Bar</option>
+                                <option value="beauty_salon">Beauty Salon</option>
+                                <option value="bowling_alley">Bowling Alley</option>
+                                <option value="bus_station">Bus Station</option>
+                                <option value="cafe">Cafe </option>
+                                <option value="campground">Campground </option>
+                                <option value="car_rental">Car Rental </option>
+                                <option value="casino">Casino </option>
+                                <option value="lodging">Lodging </option>
+                                <option value="movie_theater">Movie Theater </option>
+                                <option value="museum">Museum </option>
+                                <option value="night_club">Night Club </option>
+                                <option value="park">Park </option>
+                                <option value="parking">Parking </option>
+                                <option value="restaurant">Restaurant </option>
+                                <option value="shopping_mall">Shopping Mall </option>
+                                <option value="stadium">Stadium </option>
+                                <option value="subway_station">Subway Station</option>
+                                <option value="taxi_stand">Taxi Stand</option>
+                                <option value="train_station">Train Station</option>
+                                <option value="transit_station">Transit Station </option>
+                                <option value="travel_agency">Travel Agency</option>
+                                <option value="zoo">Zoo </option>
+                            </select>
+                          </div>
+                        </div>
+                          
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="distance">Distance (miles)</label>
+                          <div class="col-md-7">
+                            <input id="distance" name="distance" type="text" placeholder="10" class="form-control input-sm" ng-model="formData.distance">
+                          </div>
+                        </div>
+
+                        <!-- From location -->
+                        <div class="form-group" ng-class="{'has-error':myForm.locationOther.$touched && myForm.locationOther.$error.required}">
+                          <label class="col-md-3 control-label" for="From">From<span style="color:red">*</span></label>
+                          <div class="col-md-9">
+                            <div class="radio">
+                                <label><input type="radio" name="location" id="defaultHere" value="current" ng-model="formData.location" ng-value="0" ng-checked="formData.location == 0"> Current location</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="location" id="locationOther" ng-model="formData.location" ng-value="1" ng-checked="formData.location == 1" ng-init="formData.location = 0"> Other&#44; Please specify&#58;</label>
+                                <input id="other" name="locationOther" type="text" placeholder="Enter a location" class="form-control input-sm" style="margin-left: 20px; width:93%;" ng-disabled="formData.location == 0" ng-model="formData.locationOther" ng-required="formData.location == 1" googleplace>
+                                <p ng-show="myForm.locationOther.$touched && myForm.locationOther.$error.required" class="help-block">Location is required</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- button collection -->
+                        <div class="form-group">
+                          <div class="col-md-12 text-left">
+                            <button type="submit" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid"><span class="glyphicon glyphicon-search"></span> Search</button>
+                            <button type="reset" class="btn btn-secondary btn-sm" ng-click="clearFunc(myForm)">Clear</button>
+                          </div>
+                        </div>
+                      </fieldset>
+                      </form>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-outline-primary btn-sm" id="results" ng-click="clickResult('/showresults')" ng-class="{'to-active':resultsClicked}" > Results </button>
+            <button class="btn btn-outline-primary btn-sm" id="favorites" ng-click="clickFav('/showfavorites')" ng-class="{'to-active':favClicked}"> Favorites </button>  
+        </div> 
+      </div>
+	</div>
+</div>
+    
+<div class="row" ng-show="loading && searchSuccess" style="margin-top: 80px;">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+            <span class="sr-only">50 Complete</span>
+          </div>
+        </div>
+    </div>
+</div>
+    
+
+    
+
+<!--<pre>{{formData}}</pre>-->
+    
+<div ng-view ng-class="slide" ng-if="resultsClicked"></div>
+<div ng-view ng-class="goSlide" ng-if="favClicked"></div>
+    
+ <div class="row" ng-if="!searchSuccess" style="margin-top:50px;">
+    <div class="col-md-10 col-md-offset-1" style="overflow: scroll">
+        <div>
+            <div class="alert alert-danger" role="alert">
+                <strong>Fail to get search result</strong> 
+            </div>
+        </div>
+    </div>
+</div>   
+
+    
+</body>
+</html>

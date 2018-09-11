@@ -1,0 +1,39 @@
+<div ng-app="myapp">
+    <form  name="myform" class="form form-horizontal" ng-controller="myappCtrl" novalidate>
+    <legend>Angular User Validation with Bootstrap Decorations</legend>
+    <div class="control-group" ng-class="{error:!myform.username.$valid}">
+        <label for="inputUsername" class="control-label">Username:</label>
+        <div class="controls">
+            <input type="text" id="inputUsername" name="username" ng-model="username" valid-username />
+            <div class="help-inline">
+                <span ng-show="!!myform.username.$error.isBlank">Username Required.</span>
+				<span ng-show="!!myform.username.$error.invalidChars">Username must contain letters &amp; spaces only.</span>
+                <span ng-show="!!myform.username.$error.invalidLen">Username must be 5-20 characters.</span>
+            </div>
+        </div>
+    </div>
+    <div class="control-group" ng-class="{error:!myform.password.$valid}">
+        <label for="inputPassword" class="control-label">Password:</label>
+        <div class="controls">
+            <input type="text" id="inputPassword" name="password" ng-model="password" valid-password />
+            <div class="help-inline">
+                <span ng-show="!!myform.password.$error.isBlank">Password Required.</span>
+                <span ng-show="!!myform.password.$error.isWeak">Must contain one upper &amp; lower case letter and a non-letter (number or symbol.)</span>
+                <span ng-show="!!myform.password.$error.invalidLen">Must be 8-20 characters.</span>
+            </div>
+        </div>
+    </div>
+    <div class="control-group" ng-class="{error:!myform.password_c.$valid}">
+        <label for="password_c" class="control-label">Confirm Password:</label>
+        <div class="controls">
+            <input type="text" id="password_c" name="password_c" ng-model="password_c" valid-password-c />
+            <div class="help-inline">
+                <span ng-show="!!myform.password_c.$error.isBlank">Confirmation Required.</span>
+                <span ng-show="!!myform.password_c.$error.noMatch">Passwords don't match.</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-actions" ng-show="formAllGood()">
+        <input type="submit" class="btn btn-primary" value="Submit" />
+    </div>
+    </form></div>

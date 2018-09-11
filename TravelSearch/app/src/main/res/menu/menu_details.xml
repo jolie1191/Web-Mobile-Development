@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.jiahui.travelsearch.DetailsActivity">
+
+    <item
+        android:id="@+id/action_share"
+        android:icon="@drawable/share"
+        android:title="Share"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_favorite"
+        android:icon="@drawable/heart_fill_white"
+        android:title="Favorite"
+        app:showAsAction="ifRoom" />
+
+
+</menu>

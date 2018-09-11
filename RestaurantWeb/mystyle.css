@@ -1,0 +1,338 @@
+
+html,body {
+    height:100%;
+    width:1193px;
+}
+address {
+  font-family: Helvetica, sans-serif;
+  color: rgb(128,128,128);
+  font-size:14px;
+  font-style:normal;
+  padding-left:160px;
+  padding-top:25px;
+}
+h1{
+  width:1193px;
+  font-family:Arial, Gadget, sans-serif;
+  font-size:55px;
+  letter-spacing:-1px;
+  text-align:center;
+  color:rgb(190, 154, 93);
+  font-weight:500;
+  padding-top:0px;
+  padding-bottom:40px;
+  margin:0px;
+}
+
+.menu {
+  width: 1193px;
+  text-align:center;
+  border-top:1px solid silver;
+}
+.menu ul {
+  display:inline-block;			     
+  list-style-type:none;
+  margin:0 auto;
+  padding:10px;
+  overflow:hidden;
+  background-color:white;
+
+  width:1193px;
+  margin-left:100px;
+}
+.menu li {
+    float:left;
+    width:190px;
+    font-size: 15px;
+}
+.menu li a {
+  display:inline;
+  color: rgb(128,128,128);
+  font-family: Helvetica, sans-serif;
+  text-align:center;
+  padding:30px;
+  text-decoration:none;
+}
+.menu a.active {
+  color:rgb(190, 154, 93);
+}
+
+.cd-fixed-bg {
+  height:650px;
+  width:1193px;
+  background-size: 1940px;
+  background-repeat: no-repeat;
+  background-position: -363px 30px;
+  background-attachment:fixed;
+  background-image: url("http://cs-server.usc.edu:45678/hw/hw3/images/image6.jpg");
+    
+}
+
+.cd-scrolling-bg {
+    height: 2000px;
+    width:1193px;
+    background-color:white;
+    padding: 1em 0;
+    line-height: 1.6;
+
+
+    position:relative;
+    top:0px;
+
+   
+}
+
+.page-left {
+    width:50%;
+    float:left;
+    
+}
+.page-right {
+    width:50%;
+    float:right;
+}
+
+.graph-1 {
+    height:500px;
+    width:445px;
+    margin:45px auto;
+    background-image: url("http://cs-server.usc.edu:45678/hw/hw3/images/image3.jpg");
+    background-repeat: no-repeat;
+}
+
+.graph-2 {
+    height:257px;
+    width:445px;
+    margin:45px auto;
+    background-image: url("http://cs-server.usc.edu:45678/hw/hw3/images/image2.jpg");
+    background-repeat: no-repeat;
+}
+
+.content-left {
+    width:445px;
+    padding-left:5px;
+    padding-top:10px;
+}
+
+.content-left h2 {
+    font-family: Libre Baskerville;
+    font-style:Italic;
+    color: rgb(190, 154, 93);
+    font-weight:500;
+    font-size:34px;
+    line-height:1em;
+    margin-top:16px;
+    margin-bottom:0px;
+}
+
+.content-left p {
+    font-family: Helvetica, sans-serif;
+    font-size:16px;
+    color: rgb(128,128,128);
+    font-weight:500;
+    margin-top:8px;
+    margin-bottom:8px;
+
+}
+
+
+.read-more-here:link {
+    font-family: Helvetica, sans-serif;
+    color: black;
+    text-decoration:none;    
+}
+
+.read-more-here:visited {
+    color:black;
+}
+
+.read-more-here:hover {
+    color:silver;
+}
+
+
+
+.graph-3 {
+    height:309px;
+    width:448px;
+    margin:45px auto;
+    background-image: url("http://cs-server.usc.edu:45678/hw/hw3/images/image1.jpg");
+    background-repeat: no-repeat;
+}
+
+.graph-4 {
+    height:461px;
+    width:447px;
+    margin:45px auto;
+    background-image: url("http://cs-server.usc.edu:45678/hw/hw3/images/image4.jpg");
+    background-repeat: no-repeat;
+}
+
+/*--------content right------------*/
+.content-right {
+    width:445px;
+    margin-left:6px;
+    margin-bottom:75px;
+}
+
+.content-right h3 {
+    font-family: Helvetica, sans-serif;
+    font-size:12px;
+    color:gray;
+    font-weight:300;
+    padding-top:10px;
+    letter-spacing:1px;
+}
+
+.content-right h2 {
+    font-family: Libre Baskerville;
+    font-style:Italic;
+    color: rgb(190, 154, 93);
+    font-weight:500;
+    font-size:34px;
+    line-height:1em;
+    margin-top:14px;
+    margin-bottom:10px;
+
+}
+
+.content-right p {
+    font-family:Helvetica, sans-serif;
+    font-size:16px;
+    color:gray;
+    font-weight:500;
+}
+
+
+
+.graph-5 {
+    clear:both;
+    height:603px;
+    width:929px;
+    margin:50px auto;
+    background-image: url("http://cs-server.usc.edu:45678/hw/hw3/images/image7.jpg");
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size:cover;
+}
+
+.graph-5-content {
+    margin:0px auto;
+    background-color:white;
+    width:390px;
+    height:140px;
+    line-height:0.5em;
+    text-align:center;
+
+    position:relative;
+    top:37%;
+    
+}
+
+
+
+.graph-5-content h6 {
+    font-family:Helvetica, sans-serif;
+    font-weight: 400;
+    padding-top:42px;
+    color: rgb(128,128,128);
+    letter-spacing:2px;
+}
+
+.graph-5-content h2 {
+    font-size:32px;
+    font-weight:300;
+    color:black;
+}
+
+/*-----change style of link in graph-5-content---*/
+.order-link:link {
+    color:gray;
+    text-decoration:none;    
+}
+
+.order-link:visited {
+    color: rgb(128,128,128);
+}
+
+.order-link:hover {
+    color:silver;
+}
+
+.scrolling-bottom {
+    background-color:white;
+    text-align:center;
+}
+
+.scrolling-bottom p{
+    font-family:Helvetica, sans-serif;
+    font-size:12px;
+    color: rgb(128,128,128);
+    font-weight:300;
+    margin:5px auto;
+}
+
+p.scrolling-bottom-title {
+    font-family:Helvetica, sans-serif;
+    font-size:12px;
+    color: rgb(128,128,128);
+    font-weight:300;
+    margin:5px auto;
+    letter-spacing:2px;
+}
+
+p.scrolling-bottom-content {
+    font-family: Libre Baskerville;
+    font-style:Italic;
+    color: rgb(190, 154, 93);
+    font-weight:500;
+    font-size:36px;
+    line-height:1em;
+   
+    padding-bottom:65px;
+}
+
+.cd-fixed-bg-2 {
+  height:600px;
+  width:1193px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 0px -160px;
+  background-attachment:fixed;
+  background-image: url("http://cs-server.usc.edu:45678/hw/hw3/images/image5.jpg");
+}
+
+.cd-scrolling-bg-2 {
+  background-color: rgb(190, 154, 93);
+  position:absolute;
+  top:3460px;
+  bottom:0;
+  width:1193px;
+  height:240px;
+  background-position:center;
+}
+
+.cd-scrolling-bg-2 p {
+    font-family:Helvetica, sans-serif;
+    color: white;
+    text-align:left;
+    padding-left:770px;
+    padding-top:40px;
+    font-size:15px;
+}
+
+
+/*-----padding for page left and right-----*/
+.pad-left {
+    padding-left:130px;
+    padding-top:55px;
+    width:448px;
+    
+}
+
+.pad-right {
+    padding-left:17px;
+    margin-top:0;
+    width:448px;
+}
+

@@ -1,0 +1,319 @@
+label {
+    color:black;
+}
+
+.form-horizontal .control-label{
+    text-align: left;
+    font-weight: 400;
+    font-size: 13px;
+    color:black;
+}
+
+.btn {
+        border: 1px solid silver;
+}
+
+#favorites.btn, #results.btn {
+    border:0;
+
+
+}
+
+legend {
+    border:0;
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.well-lg {
+    padding: 10px;
+}
+
+.form-group {
+    margin-bottom: 13px;
+}
+
+.help-block {
+    color:red;
+}
+
+.btn-outline-primary, .btn-outline-primary:hover {
+    background-color: white;
+    color:dodgerblue;
+}
+
+.btn-outline-primary.to-active{
+    background-color: dodgerblue;
+    color:white;
+    border:0;
+}
+
+.icon-image{
+    height:45px;
+}
+
+#showTable td {
+    font-size: 16px;
+    white-space:nowrap;
+}
+
+.pull-right {
+    margin-bottom: 10px;
+}
+
+.to-yellow {
+    background-color: lightgoldenrodyellow;
+}
+
+.nav-tabs > li {
+  float: right;
+}
+
+.nav {
+    margin-bottom: 15px;
+}
+
+
+.star {
+  position: relative;
+  display: inline-block;
+  font-size: 18px;
+}
+
+.star-under {
+  color: #ddd;
+}
+
+.star-over {
+  color: #f80;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.to-bold {
+    font-weight: 600;
+}
+
+.to-gray, .to-gray:hover {
+    background-color: grey;
+    color:white;
+}
+
+.col-md-3.to-close {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.set-photo-margin {
+    margin-top: 80px;
+}
+
+#map {
+    height: 300px;
+    margin: 0px 0;
+    border-radius: 5px;
+    border: 1px solid silver;
+}
+
+.btn.sm.back-img{
+    padding: 0;
+
+}
+
+#streetView {
+    width:30px;
+}
+
+#reviewTab option {
+    background-color: white;
+    color:black;
+}
+
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.bis.glyphicon-star {
+  text-shadow:0 0 1px  black,0 0 1px  black,0 0 1px  black,0 0 1px  black ;
+     color: gold;
+  text-shadow:0 0  black,0 0  black,0 0  black,0 0  black,0 0  black;
+}
+
+.photoRow
+{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+.photoColumn
+{
+  flex: 25%;
+  max-width: 25%;
+  padding: 0 4px;
+}
+
+.photoColumn img
+{
+  margin-top: 5px;
+  vertical-align: middle;
+    width:100%;margin-top: 5px;padding-bottom: 2px;margin-bottom: 7px;
+}
+
+
+@media screen and (max-width: 800px)
+{
+  .photoColumn
+  {
+    flex: 50%;
+    max-width: 50%;
+      width:100%;margin-top: 5px;padding-bottom: 2px;margin-bottom: 7px;
+  }
+}
+
+@media screen and (max-width: 400px)
+{
+  .photoColumn
+  {
+    flex: 100%;
+    max-width: 100%;
+      width:100%;margin-top: 5px;padding-bottom: 2px;margin-bottom: 7px;
+  }
+}
+
+
+.slide-left.ng-enter,
+.slide-left.ng-leave,
+.slide-right.ng-enter,
+.slide-right.ng-leave {
+
+  background: inherit;
+  -ms-transition: 1s ease-in-out;
+  -webkit-transition: 1s ease-in-out;
+  transition:  1s ease-in-out;
+}
+
+.slide-left.ng-enter {}
+.slide-left.ng-enter.ng-enter-active {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+
+.slide-left.ng-leave {
+  z-index: 100;
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+.slide-left.ng-leave.ng-leave-active {
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+
+
+.slide-right.ng-enter {
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+
+.slide-right.ng-enter.ng-enter-active,
+.slide-right.ng-leave {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+
+.slide-right.ng-leave.ng-leave-active {
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+}
+
+
+
+
+/*--------*/
+.slide_from_right_to_left {
+          -webkit-transition: -webkit-transform 1.4s ease-in-out;
+          -moz-transition: -moz-transform 1.4s ease-in-out;
+          -o-transition: -o-transform 1.4s ease-in-out;
+          transition: transform 1.4s ease-in-out;
+          -webkit-transform: translateX(0);
+          transform: translateX(0);
+      }
+
+      .slide_from_right_to_left.ng-enter  {
+          -webkit-transform: translateX(100%);
+          transform: translateX(100%);
+      }
+
+      .slide_from_right_to_left.ng-enter.ng-enter-active, .slide_from_right_to_left.ng-leave {
+          /*position: absolute;*/
+          -webkit-transform: translateX(0);
+          transform: translateX(0);
+      }
+
+      .slide_from_right_to_left.ng-leave.ng-leave-active  {
+          -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+      }
+      
+      
+      
+      
+
+
+
+ .slide_from_left_to_right {
+          -webkit-transition: -webkit-transform 1.4s ease-in-out;
+          -moz-transition: -moz-transform 1.4s ease-in-out;
+          -o-transition: -o-transform 1.4s ease-in-out;
+          transition: transform 1.4s ease-in-out;
+          -webkit-transform: translateX(0);
+          transform: translateX(0);
+      }
+
+      .slide_from_left_to_right.ng-enter  {
+          -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+      }
+
+      .slide_from_left_to_right.ng-enter.ng-enter-active, .slide_from_left_to_right.ng-leave {
+         /* position: absolute;*/
+          -webkit-transform: translateX(0);
+          transform: translateX(0);
+      }
+
+      .slide_from_left_to_right.ng-leave.ng-leave-active  {
+          -webkit-transform: translateX(100%);
+          transform: translateX(100%);
+      }
+
+
+
+
+
+/* The starting CSS styles for the enter animation */
+.fade1.ng-enter {
+  transition:1s linear all;
+  opacity:0;
+}
+
+/* The finishing CSS styles for the enter animation */
+.fade1.ng-enter.ng-enter-active {
+  opacity:1;
+}
+
+/* now the element will fade out before it is removed from the DOM */
+.fade1.ng-leave {
+  transition:1s linear all;
+  opacity:1;
+}
+.fade1.ng-leave.ng-leave-active {
+  opacity:0;
+}
+
+
+

@@ -1,0 +1,285 @@
+
+
+<div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1" id="showTable" style="overflow: scroll">
+            <h3 style="text-align: center;"><b>{{title}}</b></h3>
+         <!--List-->   
+            <div>
+                <button type="button" class="btn btn-default" ng-click="goHistoryBack()" style="margin-left: 10px;">
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> List  
+                </button>
+                
+            
+                <a class="twitter-share-button pull-right"
+                  ng-href="{{getHref()}}"
+                  data-size="large" style="padding: 0;margin-left: 10px;margin-right: 10px;">
+                <img src="http://cs-server.usc.edu:45678/hw/hw8/images/Twitter.png" alt="twitter" style="width:34px;"/></a>
+                <!--<a href="https://twitter.com/intent/tweet?button_hashtag=intent&ref_src=twsrc%5Etfw" class="twitter-share-button pull-right" data-show-count="false">Tweet</a>-->
+
+                <!--tweet-->
+                <button type="button" class="btn btn-default pull-right" style="padding-left: 10px;padding-right: 10px;" ng-click="addToFav()" >
+                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true" ng-if="!detailStar"></span>
+                    <span class="glyphicon glyphicon-star bis" aria-hidden="true" ng-if="detailStar"></span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+        
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1" style="overflow: scroll">
+            <div>
+              <ul class="nav nav-tabs">
+                <li ng-class="{'active':clickReview}"><a href="" ng-click="showReview()" data-toggle="tab">Review</a></li>
+                <li ng-class="{'active':clickMap}"><a href="" ng-click="showMap()" data-toggle="tab">Map</a></li>
+                <li ng-class="{'active':clickPhotos}"><a hred="" ng-click="showPhotos()" data-toggle="tab">Photos</a></li>
+                <li ng-class="{'active':clickInfo}"><a href="" ng-click="showInfo()" data-toggle="tab">Info</a></li>
+              </ul>
+              <div>
+                  <div id="reviewTab" ng-show="clickReview">
+                        <div class="container">
+                            <div class="row">
+                            <div class="col-md-2" style="margin-bottom: 10px;display:inline-block">
+                                <select class="form-control input-sm to-gray" ng-model="reviewType">
+                                    <option value="google" >Google Reviews</option>
+                                    <option value="yelp">Yelp Reviews</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2" style="margin-bottom: 10px;display: inline-block">
+                                <select class="form-control input-sm to-gray" ng-model="reviewOrder">
+                                    <option value="default" >Default Order</option>
+                                    <option value="-author_rating">Highest Rating</option>
+                                    <option value="author_rating">Lowest Rating</option>
+                                    <option value="-review_time">Most Recent</option>
+                                    <option value="review_time">Least Recent</option>
+                                </select>
+                            </div>
+                                </div>
+                            <div class="col-md-12"> <!--{'fade1':turnFade}-->
+                                <div class="panel panel-default" ng-repeat="r in reviewArray | orderBy: reviewOrder" ng-class="{'fade1':turnFade}">
+                                  <div class="panel-body" >
+                                    <div class="media">
+                                      <div class="media-left">
+                                        <a ng-href="{{r.author_url}}" target="_blank">
+                                          <img class="media-object img-circle" ng-src="{{r.profile_photo_url}}" alt=" " style="width:40px;height:40px"/>
+                                        </a>
+                                      </div>
+                                      <div class="media-body">
+                                        <a ng-href="{{r.author_url}}" target="_blank"><h5 class="media-heading">{{r.author_name}}</h5></a>
+                                        <div style="color:gray;">
+                                    <span ng-repeat="l in getStar(r.author_rating) track by $index">
+                                        <i class="star star-under fa fa-star">
+                                            <i class="star star-over fa fa-star" style="width: 100%"></i>
+                                        </i>
+                                    </span>
+                                    <span ng-show="reviewStarRem !== 0">
+                                        <i class="star star-under fa fa-star">
+                                            <i class="star star-over fa fa-star" ng-style="{'width': reviewStarPercentage + '%' }"></i>
+                                        </i>
+                                    </span>
+                                            
+                                            {{getTimeStamp(r.review_time)}}</div>
+                                        <div>{{r.review_text}}</div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                        <!--reviews undefined control-->
+                        <div style="overflow: scroll; margin-top:50px;" ng-show="yelpState" ng-class="{'fade1':turnFade}">
+                            <div>
+                                <div class="alert alert-warning" role="alert">
+                                    <strong>No records.</strong> 
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="overflow: scroll; margin-top:50px;" ng-show="googleState" ng-class="{'fade1':turnFade}">
+                            <div>
+                                <div class="alert alert-warning" role="alert">
+                                    <strong>No records.</strong> 
+                                </div>
+                            </div>
+                        </div>
+
+                            </div>
+                        </div>  
+                      
+                  </div>
+                  <div id="mapTab" ng-show="clickMap">
+<div class="container">
+<form name="form">
+    <div class="col-md-4">
+
+        <p>From</p>
+<input type="text" id="start" name="fromLoc" class="form-control input-sm" placeholder="Your location" ng-model="fromLoc" fromplace="true"/>
+        <!--<pre>{{fromLoc}}</pre>-->
+    </div>
+    <div class="col-md-4">
+        <p>To</p>
+<input type="text" id="end" class="form-control input-sm" ng-value="toLoc" ng-model="toLoc" ng-disabled="true"/>
+    </div>
+    <div class="col-md-2">
+        <p>Travel Mode</p>
+        <select name="mode" ng-model="mode" class="form-control input-sm">
+            <option value="DRIVING" >Driving</option>
+            <option value="WALKING">Walking</option>
+            <option value="BICYCLING">Bicycling</option>
+            <option value="TRANSIT">Transit</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <p><br/></p>
+        <button type="button" class="btn btn-primary btn-sm" ng-disabled="checkEmpty" ng-click="getDirection()"><span>Get Direction</span> </button>
+    </div>
+    <div class="col-md-4"><button type="button" class="btn btn-sm back-img " style="padding:0px; margin-bottom: 6px; margin-top: 6px;" ng-click="showStreetView()"><img ng-src="{{streetImg}}" style="width:35px; height:35px;"/></button></div>
+    
+    <div class="col-md-12">
+    <div id="map"></div>
+    <div id="panel" ng-show="clickGetDirection"></div>
+    </div>
+    
+</form>
+</div>
+
+                      
+                  </div>
+                  <div id="photos" ng-show="clickPhotos">
+                      
+                      <!--photos 信息-->
+<!--<div class="container">
+    <div class="col-md-3 to-close" ng-repeat="m in getPhotos() track by $index">
+      <div class="thumbnail" >
+        <a ng-href="{{m}}" target="_blank">
+          <img ng-src="{{m}}" alt="Lights" style="width:100%"/>
+          <div class="caption">
+          </div>
+        </a>
+      </div>
+   </div>
+</div>-->
+<div class="photoRow" ng-if="photosArray.length !== 0">
+    <div class="photoColumn">
+        <a ng-if="photosArray[0] !== undefined" ng-href="{{photosArray[0]}}" target="_blank">
+            <img class="thumbnail" ng-src="{{photosArray[0]}}" style="width:100%"/></a >
+        <a ng-if="photosArray[4] !== undefined" ng-href="{{photosArray[4]}}" target="_blank">
+            <img class="thumbnail" ng-src="{{photosArray[4]}}" style="width:100%"/></a >
+        <a ng-if="photosArray[8] !== undefined" ng-href="{{photosArray[8]}}" target="_blank">
+            <img class="thumbnail" ng-src="{{photosArray[8]}}" style="width:100%"/></a >
+    </div>
+    <div class="photoColumn">
+        <a ng-if="photosArray[1] !== undefined" ng-href="{{photosArray[1]}}" target="_blank">
+            <img class="thumbnail" ng-src="{{photosArray[1]}}" style="width:100%"/></a >
+        <a ng-if="photosArray[5] !== undefined" ng-href="{{photosArray[5]}}" target="_blank">
+            <img class="thumbnail" ng-src="{{photosArray[5]}}" style="width:100%"/></a >
+        <a ng-if="photosArray[9] !== undefined" ng-href="{{photosArray[9]}}" target="_blank">
+            <img class="thumbnail" ng-src="{{photosArray[9]}}" style="width:100%"/></a >
+    </div>
+    <div class="photoColumn">
+        <a ng-if="photosArray[2] !== undefined" ng-href="{{photosArray[2]}}" target="_blank">
+            <img class="thumbnail" ng-src="{{photosArray[2]}}" style="width:100%"/></a >
+        <a ng-if="photosArray[6] !== undefined" ng-href="{{photosArray[6]}}" target="_blank">
+            <img class="thumbnail" ng-src="{{photosArray[6]}}" style="width:100%"/></a >
+    </div>
+    <div class="photoColumn">
+        <a ng-if="photosArray[3] !== undefined" ng-href="{{photosArray[3]}}" target="_blank"><img class="thumbnail" ng-src="{{photosArray[3]}}" style="width:100%"/></a >
+        <a ng-if="photosArray[7] !== undefined" ng-href="{{photosArray[7]}}" target="_blank"><img class="thumbnail" ng-src="{{photosArray[7]}}" style="width:100%"/></a >
+    </div>                  
+</div>
+
+<div class="row set-photo-margin" ng-if="photosArray.length == 0">
+    <div class="col-md-10 col-md-offset-1" style="overflow: scroll">
+        <div>
+            <div class="alert alert-warning" role="alert">
+                <strong>No records.</strong> 
+            </div>
+        </div>
+    </div>
+</div>
+                      
+                      <!--info -->
+                  </div>
+                  <div id="info" ng-show="clickInfo">
+
+                          <!-- Default panel contents -->
+                          <!--<div class="panel-heading">Panel heading</div>-->
+
+                          <!-- Table -->
+                          <table class="table table-responsive table-striped">
+                            <tr>
+                                <td><b>Address</b></td>
+                                <td>{{detailData.formatted_address}}</td>
+                            </tr>
+                            <tr ng-if="priceCount !== 0">
+                                <td><b>Price Level</b></td>
+                                <!--<td>{{detailData.price_level}}</td>-->
+                                <td><span ng-repeat="i in getPrice(priceCount) track by $index">$</span></td>
+                            </tr>
+                            <tr ng-if="phoneNumberState">
+                                <td><b>Phone Number</b></td>
+                                <td>{{detailData.international_phone_number}}</td>
+                            </tr>
+                            <tr ng-if="starCount !== 0">
+                                <td><b>Rating</b></td>
+                                <td>{{detailData.rating}}
+                                    <span ng-repeat="j in getStar(starCount) track by $index">
+                                        <i class="star star-under fa fa-star">
+                                            <i class="star star-over fa fa-star" style="width: 100%"></i>
+                                        </i>
+                                    </span>
+                                    <span ng-show="starRem !== 0">
+                                        <i class="star star-under fa fa-star">
+                                            <i class="star star-over fa fa-star" ng-style="{'width': starPercentage + '%' }"></i>
+                                        </i>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr ng-if="googlePageState">
+                                <td><b>Google Page</b></td>
+                                <td><a ng-href="{{detailData.url}}" target="_blank">{{detailData.url}}</a></td>
+                            </tr>
+                            <tr ng-if="websiteState">
+                                <td><b>Website</b></td>
+                                <td><a ng-href="{{detailData.website}}" target="_blank">{{detailData.website}}</a></td>
+                            </tr>
+                            <tr ng-if="hourHandle">
+                                <td><b>Hours</b></td>
+                                <td>{{getHour(openOrclose);}} <span><a href="" data-toggle="modal" data-target=".modal"> Daily open hours</a></span> </td>
+                            </tr>
+                          </table>
+                      
+                      <!--modal-->
+                      <div class="modal fade" ng-if="hourHandle">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                <h4 class="modal-title" id="myModalLabel">Open Hours</h4>
+                            </div>
+                                 <div class="modal-body">
+                                     <table class="table table-responsive">
+                                         <tr data-ng-repeat="n in getWeek() track by $index" ng-class="{'to-bold':todayWeek === n.day}" ng-if="todayWeek === n.day">
+                                             <td>{{n.day}}</td><td>{{n.time}}</td>
+                                         </tr>
+                                         <tr data-ng-repeat="n in getWeek() track by $index" ng-if="todayWeek !== n.day">
+                                             <td>{{n.day}}</td><td>{{n.time}}</td>
+                                         </tr>
+                                         
+                                     </table>
+                                 </div>
+                                 <div class="modal-footer">
+                                     <a href="#" class="btn to-gray" data-dismiss="modal">Close</a>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+     
+                  </div>
+            </div>
+            </div>
+        </div>
+    </div>
+        
+</div>
+    
+
