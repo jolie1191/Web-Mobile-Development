@@ -1,6 +1,6 @@
 # Web-Mobile-Development
 
-Web/Mobile Development:
+Web/Mobile Development 5 projects:
 1. Restaurant Web Page
 2. Trucking List
 3. Place search in PHP
